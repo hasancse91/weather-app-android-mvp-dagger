@@ -1,7 +1,5 @@
 package com.hellohasan.weatherappmvpdagger.features.weather_info_show.view
 
-import androidx.appcompat.app.AppCompatActivity
-
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -9,33 +7,27 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.hellohasan.weatherappmvpdagger.R
 import com.hellohasan.weatherappmvpdagger.utils.convertToListOfCityName
-import com.hellohasan.weatherappmvpdagger.features.weather_info_show.model.WeatherInfoShowModel
-import com.hellohasan.weatherappmvpdagger.features.weather_info_show.model.WeatherInfoShowModelImpl
 import com.hellohasan.weatherappmvpdagger.features.weather_info_show.model.data_class.City
 import com.hellohasan.weatherappmvpdagger.features.weather_info_show.model.data_class.WeatherDataModel
 import com.hellohasan.weatherappmvpdagger.features.weather_info_show.presenter.WeatherInfoShowPresenter
-import com.hellohasan.weatherappmvpdagger.features.weather_info_show.presenter.WeatherInfoShowPresenterImpl
-import com.hellohasan.weatherforecast.features.weather_info_show.view.MainActivityView
+import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_input_part.*
 import kotlinx.android.synthetic.main.layout_sunrise_sunset.*
 import kotlinx.android.synthetic.main.layout_weather_additional_info.*
 import kotlinx.android.synthetic.main.layout_weather_basic_info.*
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), MainActivityView {
+class MainActivity : DaggerAppCompatActivity(), MainActivityView {
 
-    private lateinit var model: WeatherInfoShowModel
-    private lateinit var presenter: WeatherInfoShowPresenter
+    @Inject
+    lateinit var presenter: WeatherInfoShowPresenter
 
     private var cityList: MutableList<City> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        // initialize model and presenter
-        model = WeatherInfoShowModelImpl(applicationContext)
-        presenter = WeatherInfoShowPresenterImpl(this, model)
 
         // call for fetching city list
         presenter.fetchCityList()

@@ -1,4 +1,4 @@
-package com.hellohasan.weatherforecast.features.weather_info_show.view
+package com.hellohasan.weatherappmvpdagger.features.weather_info_show.view
 
 import com.hellohasan.weatherappmvpdagger.features.weather_info_show.model.data_class.City
 import com.hellohasan.weatherappmvpdagger.features.weather_info_show.model.data_class.WeatherDataModel

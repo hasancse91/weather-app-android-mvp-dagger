@@ -10,11 +10,12 @@ import com.hellohasan.weatherappmvpdagger.features.weather_info_show.model.Weath
 import com.hellohasan.weatherappmvpdagger.features.weather_info_show.model.data_class.City
 import com.hellohasan.weatherappmvpdagger.features.weather_info_show.model.data_class.WeatherDataModel
 import com.hellohasan.weatherappmvpdagger.features.weather_info_show.model.data_class.WeatherInfoResponse
-import com.hellohasan.weatherforecast.features.weather_info_show.view.MainActivityView
+import com.hellohasan.weatherappmvpdagger.features.weather_info_show.view.MainActivityView
+import javax.inject.Inject
 
-class WeatherInfoShowPresenterImpl(
-        private var view: MainActivityView?,
-        private val model: WeatherInfoShowModel
+class WeatherInfoShowPresenterImpl @Inject constructor (
+    private var view: MainActivityView?,
+    private val model: WeatherInfoShowModel
 ) : WeatherInfoShowPresenter {
 
     override fun fetchCityList() {
