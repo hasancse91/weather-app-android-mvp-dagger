@@ -1,5 +1,6 @@
 package com.hellohasan.weatherappmvpdagger.common
 
+import com.hellohasan.weatherappmvpdagger.di.DaggerApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 

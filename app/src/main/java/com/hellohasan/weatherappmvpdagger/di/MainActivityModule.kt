@@ -1,7 +1,5 @@
 package com.hellohasan.weatherappmvpdagger.di
 
-import android.app.Application
-import android.content.Context
 import com.hellohasan.weatherappmvpdagger.features.weather_info_show.model.WeatherInfoShowModel
 import com.hellohasan.weatherappmvpdagger.features.weather_info_show.model.WeatherInfoShowModelImpl
 import com.hellohasan.weatherappmvpdagger.features.weather_info_show.presenter.WeatherInfoShowPresenter
@@ -11,24 +9,22 @@ import com.hellohasan.weatherappmvpdagger.features.weather_info_show.view.MainAc
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import dagger.android.ContributesAndroidInjector
 
 @Module
-abstract class MainModule {
+abstract class MainActivityModule {
+
+    @PerActivity
+    @Binds
+    abstract fun bindView(mainActivity: MainActivity): MainActivityView
 
     @Binds
-    @ApplicationContext
-    abstract fun provideContext(application: Application): Context
+    abstract fun bindModel(weatherInfoShowModelImpl: WeatherInfoShowModelImpl): WeatherInfoShowModel
 
-    @ContributesAndroidInjector
-    abstract fun bindMainActivity(): MainActivity
+    companion object {
 
-    @Binds
-    abstract fun bindWeatherInfoView(view: MainActivity): MainActivityView
-
-    @Binds
-    abstract fun bindWeatherInfoPresenter(presenter: WeatherInfoShowPresenterImpl): WeatherInfoShowPresenter
-
-    @Binds
-    abstract fun bindWeatherInfoModel(model: WeatherInfoShowModelImpl): WeatherInfoShowModel
+        @Provides
+        fun providesPresenter(view: MainActivityView, model: WeatherInfoShowModel) : WeatherInfoShowPresenter {
+            return WeatherInfoShowPresenterImpl(view, model)
+        }
+    }
 }
