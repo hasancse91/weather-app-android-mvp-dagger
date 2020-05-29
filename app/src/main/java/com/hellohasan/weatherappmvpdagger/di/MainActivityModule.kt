@@ -6,6 +6,7 @@ import com.hellohasan.weatherappmvpdagger.features.weather_info_show.presenter.W
 import com.hellohasan.weatherappmvpdagger.features.weather_info_show.presenter.WeatherInfoShowPresenterImpl
 import com.hellohasan.weatherappmvpdagger.features.weather_info_show.view.MainActivity
 import com.hellohasan.weatherappmvpdagger.features.weather_info_show.view.MainActivityView
+
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

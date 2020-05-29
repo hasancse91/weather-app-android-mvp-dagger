@@ -15,7 +15,10 @@ import com.google.gson.reflect.TypeToken
 import com.hellohasan.weatherappmvpdagger.common.RequestCompleteListener
 import javax.inject.Inject
 
-class WeatherInfoShowModelImpl @Inject constructor (private val context: Context) : WeatherInfoShowModel {
+class WeatherInfoShowModelImpl @Inject constructor(
+    private val context: Context,
+    private val apiInterface: ApiInterface
+) : WeatherInfoShowModel {
 
     /**
      * Fetch city list from local. Yes, model only knows about data source. It doesn't know anything
@@ -30,7 +33,7 @@ class WeatherInfoShowModelImpl @Inject constructor (private val context: Context
             val buffer = ByteArray(size)
             stream.read(buffer)
             stream.close()
-            val tContents  = String(buffer)
+            val tContents = String(buffer)
 
             val groupListType = object : TypeToken<ArrayList<City>>() {}.type
             val gson = GsonBuilder().create()
@@ -39,7 +42,7 @@ class WeatherInfoShowModelImpl @Inject constructor (private val context: Context
             callback.onRequestSuccess(cityList) //let presenter know the city list
 
         } catch (e: IOException) {
-           e.printStackTrace()
+            e.printStackTrace()
             callback.onRequestFailed(e.localizedMessage!!) //let presenter know about failure
         }
 
@@ -52,15 +55,20 @@ class WeatherInfoShowModelImpl @Inject constructor (private val context: Context
      * presenter with raw data. Presenter will decide the logic and let know the view what should
      * show on the UI.
      */
-    override fun getWeatherInformation(cityId: Int, callback: RequestCompleteListener<WeatherInfoResponse>) {
+    override fun getWeatherInformation(
+        cityId: Int,
+        callback: RequestCompleteListener<WeatherInfoResponse>
+    ) {
 
-        val apiInterface: ApiInterface = RetrofitClient.client.create(ApiInterface::class.java)
         val call: Call<WeatherInfoResponse> = apiInterface.callApiForWeatherInfo(cityId)
 
         call.enqueue(object : Callback<WeatherInfoResponse> {
 
             // if retrofit network call success, this method will be triggered
-            override fun onResponse(call: Call<WeatherInfoResponse>, response: Response<WeatherInfoResponse>) {
+            override fun onResponse(
+                call: Call<WeatherInfoResponse>,
+                response: Response<WeatherInfoResponse>
+            ) {
                 if (response.body() != null)
                     callback.onRequestSuccess(response.body()!!) //let presenter know the weather information data
                 else

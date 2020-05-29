@@ -2,16 +2,15 @@ package com.hellohasan.weatherappmvpdagger.di
 
 import android.app.Application
 import android.content.Context
-import com.hellohasan.weatherappmvpdagger.features.weather_info_show.model.WeatherInfoShowModel
-import com.hellohasan.weatherappmvpdagger.features.weather_info_show.model.WeatherInfoShowModelImpl
-import com.hellohasan.weatherappmvpdagger.features.weather_info_show.presenter.WeatherInfoShowPresenter
-import com.hellohasan.weatherappmvpdagger.features.weather_info_show.presenter.WeatherInfoShowPresenterImpl
 import com.hellohasan.weatherappmvpdagger.features.weather_info_show.view.MainActivity
-import com.hellohasan.weatherappmvpdagger.features.weather_info_show.view.MainActivityView
+import com.hellohasan.weatherappmvpdagger.network.ApiInterface
+import com.hellohasan.weatherappmvpdagger.network.RetrofitClient
+
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
+import javax.inject.Singleton
 
 @Module
 abstract class AppModule {
@@ -21,4 +20,14 @@ abstract class AppModule {
 
     @ContributesAndroidInjector(modules = [MainActivityModule::class])
     abstract fun mainActivityInjector(): MainActivity
+
+    companion object {
+
+        @Provides
+        @Singleton
+        @JvmStatic
+        fun provideApiService() : ApiInterface {
+            return RetrofitClient.client.create(ApiInterface::class.java)
+        }
+    }
 }
