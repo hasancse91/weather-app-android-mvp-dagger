@@ -13,7 +13,6 @@ import dagger.Provides
 @Module
 abstract class MainActivityModule {
 
-    @PerActivity
     @Binds
     abstract fun bindView(mainActivity: MainActivity): MainActivityView
 
