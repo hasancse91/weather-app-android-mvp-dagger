@@ -18,4 +18,7 @@ abstract class AppModule {
 
     @Binds
     abstract fun provideContext(application: Application): Context
+
+    @ContributesAndroidInjector(modules = [MainActivityModule::class])
+    abstract fun mainActivityInjector(): MainActivity
 }
