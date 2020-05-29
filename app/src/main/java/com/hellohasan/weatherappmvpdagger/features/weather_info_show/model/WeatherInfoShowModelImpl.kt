@@ -13,10 +13,9 @@ import retrofit2.Response
 import java.io.IOException
 import com.google.gson.reflect.TypeToken
 import com.hellohasan.weatherappmvpdagger.common.RequestCompleteListener
-import com.hellohasan.weatherappmvpdagger.di.ApplicationContext
 import javax.inject.Inject
 
-class WeatherInfoShowModelImpl @Inject constructor (@ApplicationContext val context: Context) : WeatherInfoShowModel {
+class WeatherInfoShowModelImpl @Inject constructor (private val context: Context) : WeatherInfoShowModel {
 
     /**
      * Fetch city list from local. Yes, model only knows about data source. It doesn't know anything

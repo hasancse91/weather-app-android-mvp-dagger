@@ -17,7 +17,5 @@ import dagger.android.ContributesAndroidInjector
 abstract class AppModule {
 
     @Binds
-    @ApplicationContext
     abstract fun provideContext(application: Application): Context
-
 }
